@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->id("client_id");
             $table->string('client_name');
-            $table->string("last_name_client");
-            $table->string('email_client')->unique();
-            $table->string("password_client");
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string("client_last_name");
+            $table->string('client_email')->unique();
+            $table->string("client_password");
+            // $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
-            // $table->timestamps();
+            $table->timestamps();
         });
         //
     }
