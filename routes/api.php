@@ -1,10 +1,12 @@
 <?php
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\sign_and_loginController;
-// use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarsController;
+use App\Http\Controllers\ProductController;
+// use Illuminate\Routing\Controller;
+use App\Http\Controllers\sign_and_loginController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+
 
 // use App\Models\Cars;
 
@@ -14,7 +16,7 @@ route::post('/inscription',[sign_and_loginController::class,'inscription']);
 route::post('/connexion',[sign_and_loginController::class,'connection']);
 // route pour afficher toutes les ressources
 
-
+route::post('/produit',[ProductController::class,"store"]);
 
 route::get('/cars',[CarsController::class,'index']);
 // route pour creer toutes les ressources

@@ -11,7 +11,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
+
 {
+  protected $fillable = ["product_name","product_desciption","product_price","product_nbs","product_images","category_id"];
     use HasFactory;
     public function baskets()
     {

@@ -21,13 +21,13 @@ return new class extends Migration
             $table->text("product_desciption")->nullable(false);
             $table->string("product_images")->nullable(false);
             //les clés etrangeres
-            $table->unsignedBigInteger("basket_id")->nullable(false);
-            $table->unsignedBigInteger("sub_category_id")->nullable(false);
-            $table->unsignedBigInteger("expedition_id")->nullable(false);
+            // $table->unsignedBigInteger("basket_id")->nullable(false);
+            // $table->unsignedBigInteger("category_id")->nullable(false);
+            // $table->unsignedBigInteger("expedition_id")->nullable(false);
 
-            $table->foreign("sub_category_id")->references("sub_category_id")->on("sub_categorys");
-            $table->foreign("expedition_id")->references("expedition_id")->on("expeditions")->onDelete("cascade");
-               $table->foreign("basket_id")->references("basket_id")->on("baskets");
+            // $table->foreign("category_id")->references("category_id")->on("categorys");
+            // $table->foreign("expedition_id")->references("expedition_id")->on("expeditions")->onDelete("cascade");
+            // $table->foreign("basket_id")->references("basket_id")->on("baskets");
             $table->timestamps();
         });
     }

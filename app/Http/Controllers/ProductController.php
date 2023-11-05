@@ -34,10 +34,31 @@ class ProductController extends Controller
      * @param  \App\Http\Requests\StoreProductRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProductRequest $request)
+    public function store(Request $request)
     {
-        //
+        $validator = $request->validate([
+            "name" => ["required", 'string', 'max:30', 'min:3'],
+            "description" => ["required", 'string', 'max:30', 'min:3'],
+            "price" => ["required", "numeric", "max:30", "min:10"],
+            "quantity" => ["required", "numeric"],
+            "image_product" => ["required", "string"],
+            "category_id" => ["required", "numeric"]
+        ]);
+
+        // Pas besoin de vérifier $validator ici, la méthode validate lance une exception si la validation échoue.
+
+        $data = Product::create([
+            "product_name" => $validator["name"],
+            "product_description" => $validator["description"],
+            "product_price" => $validator["price"],
+            "product_quantity" => $validator["quantity"],
+            "product_images" => $validator["image_product"],
+            "category_id" => $validator["category_id"],
+        ]);
+
+        return response($data, 200);
     }
+
 
     /**
      * Display the specified resource.
