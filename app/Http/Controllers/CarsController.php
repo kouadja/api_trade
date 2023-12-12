@@ -22,7 +22,7 @@ class CarsController extends Controller
         }
         //on l affiche avec reponse qui renvoye une reponse json
         // return view("merci");
-        return response($cars);
+        return response($cars,200);
     }
 
     /**

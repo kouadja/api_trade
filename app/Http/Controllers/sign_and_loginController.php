@@ -15,38 +15,42 @@ class Sign_and_loginController extends Controller
     {
 
         $validator = $request->validate([
-
             'name' => ['string', 'max:30', 'min:3'],
-            "last_name" => ['string', 'max:30', 'min:3'],
-            'email' => ['email', 'max:30', 'min:8', Rule::unique("clients", "client_email"), Rule::unique('admins', 'admin_email')],
-            "number" => ["number", "max:10"],
-            'password' => ['string', 'max:30', 'min:3']
+            "number" => ['numeric', 'min:8'],
+            'email' => ['email',  'min:8', Rule::unique("clients", "client_email"), Rule::unique('admins', 'admin_email')],
+            'password' => ['string', 'min:3']
 
         ]);
         if (!$validator) {
             return response(['message' => 'Erreur de validation'], 422);
         }
-
+        // return response($validator);
         $utilisateurDonne = $validator;
+
         //on vas verifier si c est l admin ou pas
-        if ($utilisateurDonne["email"] == "richmondkouadja03@gmail.com") {
+        if ($validator["email"] == "richmondkouadja03@gmail.com") {
+            
             $admin = Admin::create([
                 "admin_name" => $utilisateurDonne["name"],
-                "admin_last_name" => $utilisateurDonne["last_name"],
+                "number" => $utilisateurDonne["number"],
                 "admin_email" => $utilisateurDonne["email"],
                 "admin_password" => bcrypt($utilisateurDonne["password"],)
             ]);
-            return response($admin, 201);
+            $token_admin = $admin->createToken("auth_token")->plainTextToken;
+
+            return response(["admin"=>$admin,"token"=>$token_admin], 201);
         } else {
             $utilisateur = Client::create([
                 'client_name' => $utilisateurDonne['name'],
-                "client_last_name" => $utilisateurDonne["last_name"],
+                "client_number" => $utilisateurDonne["number"],
                 'client_email' => $utilisateurDonne['email'],
                 'client_password' => bcrypt($utilisateurDonne["password"]),
                 // 'repeatPassword'=>$utilisateurDonne['repeatPassword']
 
             ]);
-            return response($utilisateur, 201);
+                        $token_client = $utilisateur->createToken("auth_token")->plainTextToken;
+
+            return response(["user"=>$utilisateur,"token"=>$token_client], 201);
         }
     }
     public function connection(Request $request)

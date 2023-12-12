@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('baskets', function (Blueprint $table) {
-            $table->id("basket_id");
-            $table->unsignedBigInteger("client_id");
-            $table->foreign("client_id")->references("client_id")->on("clients");
+        Schema::create('user_drivers', function (Blueprint $table) {
+            $table->id("driver_id");
+            $table->string("email");
+            $table->string("password");
+            $table->timestamps();
         });
     }
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('baskets');
+        Schema::dropIfExists('user_drivers');
     }
 };

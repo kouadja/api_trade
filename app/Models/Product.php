@@ -13,8 +13,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Product extends Model
 
 {
-  protected $fillable = ["product_name","product_desciption","product_price","product_nbs","product_images","category_id"];
+  protected $fillable = ["product_name","product_description","product_price","product_nbs",
+  "product_image","category_id"];
     use HasFactory;
+        protected $primaryKey = 'product_id';
+
     public function baskets()
     {
         return $this->belongTo(Basket::class);
